@@ -1,0 +1,843 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta charset="utf-8">
+
+    <title>Sales Order</title>
+
+    <script id='sap-ui-bootstrap' src='https://sapui5.hana.ondemand.com/resources/sap-ui-core.js'
+        data-sap-ui-theme='sap_belize_plus' data-sap-ui-libs='sap.m' data-sap-ui-compatVersion='edge'></script>
+
+    <script id="myXml" type="text/xmldata">
+			<mvc:View controllerName="myController" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="Machine Maintenance">
+					<content>
+						<l:VerticalLayout width="100%">
+							<fb:FilterBar reset="onReset"
+								search="onSearch"
+								showRestoreButton="true"
+								showClearButton="true">
+								<fb:filterGroupItems>
+									<fb:FilterGroupItem groupName="__$INTERNAL$"
+										name="A"
+										label="Machine Id"
+										partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<Input></Input>
+										</fb:control>
+									</fb:FilterGroupItem>
+
+									<fb:FilterGroupItem groupName="__$INTERNAL$"
+										name="B"
+										label="Status"
+										labelTooltip=""
+										mandatory="true"
+										partOfCurrentVariant="true"
+										visibleInFilterBar="true">
+										<fb:control>
+											<ComboBox type="Text">
+												<items>
+													<core:Item key="B-"
+														text="Created" />
+													<core:Item key="O+"
+														text="In process" />
+													<core:Item key="A+"
+														text="Completed" />
+												</items>
+											</ComboBox>
+										</fb:control>
+									</fb:FilterGroupItem>
+
+								</fb:filterGroupItems>
+							</fb:FilterBar>
+						</l:VerticalLayout>
+
+						<Table id="idTableUp" mode="MultiSelect"
+
+							items="{/}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Machines"
+											level="H2" />
+										<ToolbarSpacer />
+										<Button text="Add" type="Emphasized" />
+										<Button text="Edit" type="Emphasized" />
+										<Button text="Delete"
+											type="Emphasized" />
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column
+									>
+									<Text text="Machine Id" />
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Machine name" />
+								</Column>
+								<Column
+									minScreenWidth="Desktop"
+									demandPopin="true"
+									hAlign="End">
+									<Text text="Assigned To" />
+                                </Column>
+                                <Column
+                                >
+                                <Text text="Status" />
+                            </Column>
+                            <Column
+                            minScreenWidth="Tablet"
+                            demandPopin="true"
+                            >
+                            <Text text="Start" />
+                        </Column>
+                        <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true"
+                        >
+                        <Text text="End" />
+                    </Column>
+                <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+                >
+                <Text text="Issues" />
+            </Column>
+            <Column
+            minScreenWidth="Tablet"
+            demandPopin="true"
+            >
+            <Text text="Location" />
+        </Column>
+
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text
+											text="{MachineId}" />
+										<Text
+											text="{MachineDetail}" />
+										<Text
+                                            text="{AssignedTo}" />
+                                            <Text
+											text="{Status}" />
+										<Text
+											text="{Start}" />
+										<Text
+                                            text="{End}" />
+                                           
+										<Text
+											text="{Issues}" />
+										<Text
+											text="{Location}" />        
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
+		</script>
+
+    <script>
+        sap.ui.controller("myController", {
+            onInit: function () {
+
+                this.getView().setBusy(true);
+				},
+				onAfterRendering: function() {
+				this.getView().setBusy(false);
+			},
+            onSearch: function () {
+
+                // create some local data
+                var aData = [
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977b9" }, "MachineId": "10100151", "MachineDetail": "Lathe Machine", "AssignedTo": "Rob", "Status": "Created", "Start": "", "End": "", "Progress of Operation": "0%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977ba" }, "MachineId": "10100152", "MachineDetail": "Milling Machine", "AssignedTo": "Joe", "Status": "Completed", "Start": "Mon Aug 11 2020 10:55:41", "End": "Mon Aug 12 2020 11:55:41", "Progress of Operation": "100%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977bb" }, "MachineId": "10100153", "MachineDetail": "CNC", "AssignedTo": "Dave", "Status": "In process", "Start": "Mon Aug 11 2020 07:55:41", "End": "", "Progress of Operation": "50%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977bc" }, "MachineId": "10100154", "MachineDetail": "CNC", "AssignedTo": "Dave", "Status": "In process", "Start": "Mon Aug 12 2020 10:55:41", "End": "", "Progress of Operation": "60%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977bd" }, "MachineId": "10100155", "MachineDetail": "Drilling Machine", "AssignedTo": "Joe", "Status": "Completed", "Start": "Mon Aug 11 2020 07:55:41", "End": "Mon Aug 11 2020 16:00:00", "Progress of Operation": "100%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977be" }, "MachineId": "10100156", "MachineDetail": "Milling Machine", "AssignedTo": "Rob", "Status": "Created", "Start": "", "End": "", "Progress of Operation": "0%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977bf" }, "MachineId": "10100157", "MachineDetail": "CNC", "AssignedTo": "Henry", "Status": "In process", "Start": "Mon Aug 14 2020 10:55:41", "End": "", "Progress of Operation": "70%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977c0" }, "MachineId": "10100158", "MachineDetail": "Assembly Machine", "AssignedTo": "Joan", "Status": "In process", "Start": "Mon Aug 14 2020 10:55:41", "End": "", "Progress of Operation": "70%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977c1" }, "MachineId": "10100159", "MachineDetail": "Threading Machine", "AssignedTo": "Noel", "Status": "Created", "Start": "", "End": "", "Progress of Operation": "0%", "Issues": "", "Location": "Plant1" },
+                    { "_id": { "$oid": "5f3a49682c5e5a46e09977c2" }, "MachineId": "10100160", "MachineDetail": "Industrial Cutter", "AssignedTo": "Nelson", "Status": "In process", "Start": "Mon Aug 15 2020 10:55:41", "End": "", "Progress of Operation": "80%", "Issues": "", "Location": "Plant1" }
+                ];
+
+                // create a JSONModel, fill in the data and bind the Table to this model
+                var oModel = new sap.ui.model.json.JSONModel();
+                var oTable = this.getView().byId("idTableUp");
+
+                oModel.setData(aData);
+                oTable.setModel(oModel);
+                //oTable.bindRows("/");
+            }
+        });
+        sap.ui.xmlview({ viewContent: jQuery('#myXml').html() }).placeAt("content");
+    </script>
+</head>
+<body id='content' class='sapUiBody'>
+</body>
+
+</html>
